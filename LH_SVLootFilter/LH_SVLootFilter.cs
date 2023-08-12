@@ -12,7 +12,7 @@ namespace LH_SVLootFilter
     {
         public const string pluginGuid = "LH_SVLootFilter";
         public const string pluginName = "LH_SVLootFilter";
-        public const string pluginVersion = "0.0.1";
+        public const string pluginVersion = "0.0.2";
 
         static GameObject WeirdThing;
 
@@ -39,12 +39,30 @@ namespace LH_SVLootFilter
 
         public static void MakeButton(Dropdown ___tierDropdown1)
         {
+            if (EnergyCellToggle == null)
+            {
+                GameObject LootfilterConfigMenu = ___tierDropdown1.gameObject.transform.parent.gameObject;
+                EnergyCellToggle = GameObject.Instantiate(LootfilterConfigMenu).transform.Find("CollectJunk").GetComponent<Toggle>();
+                EnergyCellToggle.transform.SetParent(LootfilterConfigMenu.transform.GetChild(15));
+                EnergyCellToggle.transform.localPosition = new Vector3(7, 111, 0);
+                EnergyCellToggle.transform.localScale = new Vector3(1, 1, 0);
+                EnergyCellToggle.GetComponentInChildren<Text>().text = "Collect Energy Cells";
+                EnergyCellToggle.isOn = true;
+                EnergyCellToggle.gameObject.SetActive(true);
+                LootfilterConfigMenu.transform.GetComponentInChildren<Button>().onClick.AddListener(() =>
+                {
+                    if (EnergyCellToggle.isOn == false && MiningFilter.Contains(18) == false)
+                        MiningFilter.Add(18);
+                    else if (EnergyCellToggle.isOn == true && MiningFilter.Contains(18) == true)
+                        MiningFilter.Remove(18);
+                });
+            }
             if (MiningFilterBtn == null)
             {
                 GameObject LootfilterConfigMenu = ___tierDropdown1.gameObject.transform.parent.gameObject;
                 MiningFilterBtn = GameObject.Instantiate(LootfilterConfigMenu.transform.GetComponentInChildren<Button>());
                 MiningFilterBtn.transform.SetParent(LootfilterConfigMenu.transform.GetChild(15));
-                MiningFilterBtn.transform.localPosition = new Vector3(-104, 123, 0);
+                MiningFilterBtn.transform.localPosition = new Vector3(-103, 98, 0);
                 MiningFilterBtn.transform.localScale = new Vector3(1, 1, 0);
                 MiningFilterBtn.GetComponentInChildren<Text>().text = "Mining filter";
                 MiningFilterBtn.gameObject.SetActive(true);
@@ -233,5 +251,6 @@ namespace LH_SVLootFilter
         };
         public static List<int> MiningFilter = new List<int>();
         public static Button MiningFilterBtn;
+        public static Toggle EnergyCellToggle;
     }
 }
