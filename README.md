@@ -1,5 +1,5 @@
 # Description
-This mod adds a filter for mining materials and also applies this filter to the refinery. 
+This mod adds a filter for energy cells and for mining materials, and also applies this filter to the refinery. 
 Gone are the days where your inventory fills up with stuff you don't want and constantly need to destroy while you're out mining.
 It works with the existing lootfilter and sticks a button in the lootfilter config to access it, so you can pick and choose what you want.
 
