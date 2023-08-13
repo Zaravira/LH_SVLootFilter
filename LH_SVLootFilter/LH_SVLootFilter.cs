@@ -12,7 +12,7 @@ namespace LH_SVLootFilter
     {
         public const string pluginGuid = "LH_SVLootFilter";
         public const string pluginName = "LH_SVLootFilter";
-        public const string pluginVersion = "0.0.2";
+        public const string pluginVersion = "0.0.3";
 
         static GameObject WeirdThing;
 
@@ -204,7 +204,13 @@ namespace LH_SVLootFilter
                             btnPlatinum.isOn = false;
                     });
                     mom.transform.Find("Close").gameObject.GetComponent<Button>().onClick.AddListener(() => {
-                        MiningFilter.Clear();
+                        if (MiningFilter.Contains(18) == true)
+                        {
+                            MiningFilter.Clear();
+                            MiningFilter.Add(18);
+                        }
+                        else
+                            MiningFilter.Clear();
                         for (int i = 0; i < Toggles.Length; i++)
                         {
                             if (Toggles[i].isOn == false)
